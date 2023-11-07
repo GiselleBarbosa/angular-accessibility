@@ -14,14 +14,15 @@
  * limitations under the License.
  */
 
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { LiveAnnouncer } from '@angular/cdk/a11y';
 
 @Component({
   selector: 'app-shop',
   templateUrl: './shop.component.html',
   styleUrls: ['./shop.component.scss'],
 })
-export class ShopComponent implements OnInit {
+export class ShopComponent {
   quantity = 11;
   color = 'gold';
 
@@ -35,9 +36,7 @@ export class ShopComponent implements OnInit {
   selectedFillings: string[] = [];
 
   // TODO: #11. Announce changes with LiveAnnouncer
-  constructor() {}
-
-  ngOnInit(): void {}
+  constructor(private liveAnnouncer: LiveAnnouncer) {}
 
   counter(i: number): Array<number> {
     return new Array(i);
@@ -58,5 +57,7 @@ export class ShopComponent implements OnInit {
     // TODO: #11. Announce changes with LiveAnnouncer // fixed
     const fakePurchase = `Purchase ${this.quantity} ${flavor}dumplings in the color ${this.color}!`;
     console.log(fakePurchase);
+
+    this.liveAnnouncer.announce(fakePurchase);
   }
 }
